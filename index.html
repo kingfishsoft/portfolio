@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life Path Number Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #f9f9f9;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 1.1rem;
+      color: #555;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 1rem;
+      margin: 5px;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Discover Your Life Path Number</h1>
+  <p>Enter your birthdate to get your Life Path Number and a brief personality insight.</p>
+
+  <input type="date" id="birthdate" />
+  <button onclick="calculateLifePath()">Calculate</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateLifePath() {
+      const birthdate = document.getElementById("birthdate").value;
+      if (!birthdate) return alert("Please enter your birthdate.");
+
+      const digits = birthdate.replace(/-/g, '').split('').map(Number);
+      let total = digits.reduce((a, b) => a + b, 0);
+
+      while (![11, 22, 33].includes(total) && total > 9) {
+        total = total.toString().split('').map(Number).reduce((a, b) => a + b, 0);
+      }
+
+      const meanings = {
+        1: "Leader, independent, ambitious.",
+        2: "Diplomatic, sensitive, peacemaker.",
+        3: "Creative, expressive, social.",
+        4: "Practical, reliable, hardworking.",
+        5: "Adventurous, energetic, curious.",
+        6: "Nurturing, responsible, caring.",
+        7: "Analytical, spiritual, deep thinker.",
+        8: "Powerful, business-minded, goal-oriented.",
+        9: "Compassionate, generous, humanitarian.",
+        11: "Visionary, intuitive, spiritually aware.",
+        22: "Master builder, ambitious, visionary.",
+        33: "Master teacher, compassionate, uplifting."
+      };
+
+      const message = `Your Life Path Number is ${total}: ${meanings[total] || 'Unknown meaning.'}`;
+      document.getElementById("result").innerText = message;
+    }
+  </script>
+</body>
+</html>
